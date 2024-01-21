@@ -41,8 +41,8 @@ func main() {
 	validator := validation.NewSimpleValidator(registry)
 
 	err := validator.Validate("valid_value", []validation.Constraint{
-		&validation.NotNilConstraint{},
-		&validation.NotBlankConstraint{},
+		&validation.NotNil{},
+		&validation.NotBlank{},
 	})
 
 	if err != nil {

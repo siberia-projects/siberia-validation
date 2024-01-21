@@ -31,16 +31,16 @@ var _ = Describe(
 			Context("and a registry with passed validators was requested", func() {
 				It("should return a new instance of the registry the validators", func() {
 					// given
-					notNilConstraintValidator := NewNotNilConstraintValidator()
-					notNilConstraintValidatorName := notNilConstraintValidator.GetName()
+					notNilValidator := NewNotNilValidator()
+					notNilValidatorName := notNilValidator.GetName()
 
-					notBlankConstraintValidator := NewNotBlankConstraintValidator()
-					notBlankConstraintValidatorName := notBlankConstraintValidator.GetName()
+					notBlankValidator := NewNotBlankValidator()
+					notBlankValidatorName := notBlankValidator.GetName()
 
 					// when
 					registry := NewSimpleConstraintValidatorRegistry(
-						notNilConstraintValidator,
-						notBlankConstraintValidator,
+						notNilValidator,
+						notBlankValidator,
 					)
 
 					// then
@@ -50,26 +50,26 @@ var _ = Describe(
 					Expect(ok).To(BeTrue())
 					Expect(validators).To(HaveLen(2))
 
-					notNilConstraintValidatorFound, ok := validators[notNilConstraintValidatorName]
+					notNilValidatorFound, ok := validators[notNilValidatorName]
 
 					Expect(ok).To(BeTrue())
-					Expect(notNilConstraintValidatorFound).ToNot(BeNil())
+					Expect(notNilValidatorFound).ToNot(BeNil())
 
-					notBlankConstraintValidatorFound, ok := validators[notBlankConstraintValidatorName]
+					notBlankValidatorFound, ok := validators[notBlankValidatorName]
 
 					Expect(ok).To(BeTrue())
-					Expect(notBlankConstraintValidatorFound).ToNot(BeNil())
+					Expect(notBlankValidatorFound).ToNot(BeNil())
 				})
 			})
 
 			Context("and a registry with default validators was requested", func() {
 				It("should return a new instance of the registry with default validators", func() {
 					// given
-					notNilConstraintValidator := NewNotNilConstraintValidator()
-					notNilConstraintValidatorName := notNilConstraintValidator.GetName()
+					notNilValidator := NewNotNilValidator()
+					notNilValidatorName := notNilValidator.GetName()
 
-					notBlankConstraintValidator := NewNotBlankConstraintValidator()
-					notBlankConstraintValidatorName := notBlankConstraintValidator.GetName()
+					notBlankValidator := NewNotBlankValidator()
+					notBlankValidatorName := notBlankValidator.GetName()
 
 					// when
 					registry := NewSimpleConstraintValidatorRegistryWithDefaultValidators()
@@ -81,15 +81,15 @@ var _ = Describe(
 					Expect(ok).To(BeTrue())
 					Expect(validators).To(HaveLen(2))
 
-					notNilConstraintValidatorFound, ok := validators[notNilConstraintValidatorName]
+					notNilValidatorFound, ok := validators[notNilValidatorName]
 
 					Expect(ok).To(BeTrue())
-					Expect(notNilConstraintValidatorFound).ToNot(BeNil())
+					Expect(notNilValidatorFound).ToNot(BeNil())
 
-					notBlankConstraintValidatorFound, ok := validators[notBlankConstraintValidatorName]
+					notBlankValidatorFound, ok := validators[notBlankValidatorName]
 
 					Expect(ok).To(BeTrue())
-					Expect(notBlankConstraintValidatorFound).ToNot(BeNil())
+					Expect(notBlankValidatorFound).ToNot(BeNil())
 				})
 			})
 		})
@@ -115,13 +115,13 @@ var _ = Describe(
 			Context("and a validator exists in a registry", func() {
 				It("should successfully return it without any error", func() {
 					// given
-					notNilConstraintValidator := NewNotNilConstraintValidator()
-					notNilConstraintValidatorName := notNilConstraintValidator.GetName()
+					notNilValidator := NewNotNilValidator()
+					notNilValidatorName := notNilValidator.GetName()
 
-					registry.Add(notNilConstraintValidator)
+					registry.Add(notNilValidator)
 
 					// when
-					validator, err := registry.Get(notNilConstraintValidatorName)
+					validator, err := registry.Get(notNilValidatorName)
 
 					// then
 					Expect(err).To(BeNil())
@@ -140,8 +140,8 @@ var _ = Describe(
 			Context("and a validator doesn't exist in a registry yet", func() {
 				It("should successfully add it", func() {
 					// given
-					notNilConstraintValidator := NewNotNilConstraintValidator()
-					notNilConstraintValidatorName := notNilConstraintValidator.GetName()
+					notNilValidator := NewNotNilValidator()
+					notNilValidatorName := notNilValidator.GetName()
 
 					// when / then
 					registryCasted, ok := registry.(*SimpleConstraintValidatorRegistry)
@@ -149,36 +149,36 @@ var _ = Describe(
 					Expect(ok).To(BeTrue())
 					Expect(registryCasted.validators).To(HaveLen(0))
 
-					registry.Add(notNilConstraintValidator)
+					registry.Add(notNilValidator)
 					Expect(registryCasted.validators).To(HaveLen(1))
 
-					notNilConstraintValidatorFound, ok := registryCasted.validators[notNilConstraintValidatorName]
+					notNilValidatorFound, ok := registryCasted.validators[notNilValidatorName]
 
 					Expect(ok).To(BeTrue())
-					Expect(notNilConstraintValidatorFound).ToNot(BeNil())
+					Expect(notNilValidatorFound).ToNot(BeNil())
 				})
 			})
 
 			Context("and a validator already exists in a registry", func() {
 				It("should just skip it", func() {
 					// given
-					notNilConstraintValidator := NewNotNilConstraintValidator()
-					notNilConstraintValidatorName := notNilConstraintValidator.GetName()
+					notNilValidator := NewNotNilValidator()
+					notNilValidatorName := notNilValidator.GetName()
 
-					newValidatorWithSameName := &testValidator{name: notNilConstraintValidatorName}
+					newValidatorWithSameName := &testValidator{name: notNilValidatorName}
 
 					// when / then
 					registryCasted, ok := registry.(*SimpleConstraintValidatorRegistry)
 
-					registry.Add(notNilConstraintValidator)
+					registry.Add(notNilValidator)
 					registry.Add(newValidatorWithSameName)
 
 					Expect(registryCasted.validators).To(HaveLen(1))
 
-					notNilConstraintValidatorFound, ok := registryCasted.validators[notNilConstraintValidatorName]
+					notNilValidatorFound, ok := registryCasted.validators[notNilValidatorName]
 
 					Expect(ok).To(BeTrue())
-					Expect(notNilConstraintValidatorFound).To(Equal(notNilConstraintValidator))
+					Expect(notNilValidatorFound).To(Equal(notNilValidator))
 				})
 			})
 		})
@@ -193,8 +193,8 @@ var _ = Describe(
 			Context("and a validator exists in a registry", func() {
 				It("should successfully remove it", func() {
 					// given
-					notNilConstraintValidator := NewNotNilConstraintValidator()
-					registry.Add(notNilConstraintValidator)
+					notNilValidator := NewNotNilValidator()
+					registry.Add(notNilValidator)
 
 					// when / then
 					registryCasted, ok := registry.(*SimpleConstraintValidatorRegistry)
@@ -202,7 +202,7 @@ var _ = Describe(
 					Expect(ok).To(BeTrue())
 					Expect(registryCasted.validators).To(HaveLen(1))
 
-					registry.Remove(notNilConstraintValidator)
+					registry.Remove(notNilValidator)
 					Expect(registryCasted.validators).To(HaveLen(0))
 				})
 			})
@@ -210,7 +210,7 @@ var _ = Describe(
 			Context("and a validator doesn't exist in a registry", func() {
 				It("should just skip it", func() {
 					// given
-					notNilConstraintValidator := NewNotNilConstraintValidator()
+					notNilValidator := NewNotNilValidator()
 
 					// when / then
 					registryCasted, ok := registry.(*SimpleConstraintValidatorRegistry)
@@ -218,7 +218,7 @@ var _ = Describe(
 					Expect(ok).To(BeTrue())
 					Expect(registryCasted.validators).To(HaveLen(0))
 
-					registry.Remove(notNilConstraintValidator)
+					registry.Remove(notNilValidator)
 					Expect(registryCasted.validators).To(HaveLen(0))
 				})
 			})

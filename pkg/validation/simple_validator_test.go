@@ -35,8 +35,8 @@ var _ = Describe(
 				It("should return a violation error contains 1 validator's error", func() {
 					// when
 					err := validator.Validate("", []Constraint{
-						&NotNilConstraint{},
-						&NotBlankConstraint{},
+						&NotNil{},
+						&NotBlank{},
 					})
 
 					// then
@@ -53,7 +53,7 @@ var _ = Describe(
 				It("should return a violation error contains all validator' errors", func() {
 					// when
 					err := validator.Validate(nil, []Constraint{
-						&NotNilConstraint{},
+						&NotNil{},
 					})
 
 					// then
@@ -73,8 +73,8 @@ var _ = Describe(
 
 					// when
 					err := validator.Validate(value, []Constraint{
-						&NotNilConstraint{},
-						&NotBlankConstraint{},
+						&NotNil{},
+						&NotBlank{},
 					})
 
 					// then

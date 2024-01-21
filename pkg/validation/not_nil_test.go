@@ -11,19 +11,19 @@ import (
 )
 
 var _ = Describe(
-	"Verifying a not blank constraint's functionality",
+	"Verifying a not nil constraint's functionality",
 	Label("not_nil_constraint"),
 	func() {
 		When("a getting of a validator's name is going", func() {
-			It("should return not blank validator's name", func() {
+			It("should return not nil validator's name", func() {
 				// given
-				constraint := &NotBlankConstraint{}
+				constraint := &NotNil{}
 
 				// when
 				validatorName := constraint.GetValidatorName()
 
 				// then
-				Expect(validatorName).To(Equal(notBlankConstraintValidatorName))
+				Expect(validatorName).To(Equal(notNilValidatorName))
 			})
 		})
 
@@ -31,14 +31,14 @@ var _ = Describe(
 			Context("and an error message is not specified", func() {
 				It("should return a default error", func() {
 					// given
-					constraint := &NotBlankConstraint{}
+					constraint := &NotNil{}
 
 					// when
 					err := constraint.GetViolationError()
 
 					// then
 					Expect(err).ToNot(BeNil())
-					Expect(err.Error()).To(Equal(notBlankConstraintDefaultErrorMessage))
+					Expect(err.Error()).To(Equal(notNilDefaultErrorMessage))
 				})
 			})
 
@@ -46,7 +46,7 @@ var _ = Describe(
 				It("should return the error message", func() {
 					// given
 					errorMessage := "invalid"
-					constraint := &NotBlankConstraint{ErrorMessage: errorMessage}
+					constraint := &NotNil{ErrorMessage: errorMessage}
 
 					// when
 					err := constraint.GetViolationError()

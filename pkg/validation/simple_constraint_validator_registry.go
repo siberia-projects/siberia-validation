@@ -23,10 +23,10 @@ func NewEmptySimpleConstraintValidatorRegistry() ConstraintValidatorRegistry {
 // NewSimpleConstraintValidatorRegistryWithDefaultValidators creates
 // a new SimpleConstraintValidatorRegistry with default ConstraintValidator(s)
 func NewSimpleConstraintValidatorRegistryWithDefaultValidators() ConstraintValidatorRegistry {
-	notNilConstraintValidator := NewNotNilConstraintValidator()
-	notBlankConstraintValidator := NewNotBlankConstraintValidator()
+	notNilValidator := NewNotNilValidator()
+	notBlankValidator := NewNotBlankValidator()
 
-	return NewSimpleConstraintValidatorRegistry(notBlankConstraintValidator, notNilConstraintValidator)
+	return NewSimpleConstraintValidatorRegistry(notBlankValidator, notNilValidator)
 }
 
 // NewSimpleConstraintValidatorRegistry creates

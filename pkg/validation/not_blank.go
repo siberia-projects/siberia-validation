@@ -8,19 +8,19 @@ package validation
 import "fmt"
 
 const (
-	notBlankConstraintDefaultErrorMessage = "A value should not be blank"
+	notBlankDefaultErrorMessage = "A value should not be blank"
 )
 
-type NotBlankConstraint struct {
+type NotBlank struct {
 	ErrorMessage string
 }
 
-func (constraint *NotBlankConstraint) GetValidatorName() string {
-	return notBlankConstraintValidatorName
+func (constraint *NotBlank) GetValidatorName() string {
+	return notBlankValidatorName
 }
 
-func (constraint *NotBlankConstraint) GetViolationError() error {
-	errorMessage := notBlankConstraintDefaultErrorMessage
+func (constraint *NotBlank) GetViolationError() error {
+	errorMessage := notBlankDefaultErrorMessage
 	if constraint.ErrorMessage != "" {
 		errorMessage = constraint.ErrorMessage
 	}

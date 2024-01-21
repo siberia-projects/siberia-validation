@@ -8,19 +8,19 @@ package validation
 import "fmt"
 
 const (
-	notNilConstraintDefaultErrorMessage = "A value should not be nil"
+	notNilDefaultErrorMessage = "A value should not be nil"
 )
 
-type NotNilConstraint struct {
+type NotNil struct {
 	ErrorMessage string
 }
 
-func (constraint *NotNilConstraint) GetValidatorName() string {
-	return notNilConstraintValidatorName
+func (constraint *NotNil) GetValidatorName() string {
+	return notNilValidatorName
 }
 
-func (constraint *NotNilConstraint) GetViolationError() error {
-	errorMessage := notNilConstraintDefaultErrorMessage
+func (constraint *NotNil) GetViolationError() error {
+	errorMessage := notNilDefaultErrorMessage
 	if constraint.ErrorMessage != "" {
 		errorMessage = constraint.ErrorMessage
 	}

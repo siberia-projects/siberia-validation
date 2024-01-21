@@ -11,31 +11,31 @@ import (
 )
 
 var _ = Describe(
-	"Verifying a not blank constraint validator's functionality",
-	Label("not_blank_constraint_validator"),
+	"Verifying a not nil constraint validator's functionality",
+	Label("not_nil_constraint_validator"),
 	func() {
 		When("a getting of a validator's name is going", func() {
-			It("should return not blank validator's name", func() {
+			It("should return not nil validator's name", func() {
 				// given
-				validator := NewNotBlankConstraintValidator()
+				validator := NewNotNilValidator()
 
 				// when
 				validatorName := validator.GetName()
 
 				// then
-				Expect(validatorName).To(Equal(notBlankConstraintValidatorName))
+				Expect(validatorName).To(Equal(notNilValidatorName))
 			})
 		})
 
 		When("a validation is going", func() {
-			validator := NewNotBlankConstraintValidator()
+			validator := NewNotNilValidator()
 
 			Context("and a valid data is passed", func() {
 				DescribeTable(
 					"should not return any error",
 					func(value any) {
 						// given
-						constraint := &NotBlankConstraint{}
+						constraint := &NotNil{}
 
 						// when
 						err := validator.Validate(value, constraint)
@@ -43,8 +43,12 @@ var _ = Describe(
 						// then
 						Expect(err).To(BeNil())
 					},
-					Entry("a valid value #1", "j"),
-					Entry("a valid value #2", "john"),
+					Entry("a valid value #1", ""),
+					Entry("a valid value #2", "j"),
+					Entry("a valid value #3", "john"),
+					Entry("a valid value #4", 2),
+					Entry("a valid value #5", 0),
+					Entry("a valid value #6", '0'),
 				)
 			})
 
@@ -53,7 +57,7 @@ var _ = Describe(
 					"should return an error",
 					func(value any) {
 						// given
-						constraint := &NotBlankConstraint{}
+						constraint := &NotNil{}
 
 						// when
 						err := validator.Validate(value, constraint)
@@ -61,9 +65,7 @@ var _ = Describe(
 						// then
 						Expect(err).ToNot(BeNil())
 					},
-					Entry("an invalid value #1", ""),
-					Entry("an invalid value #2", nil),
-					Entry("an invalid value #3", 'a'),
+					Entry("an invalid value #1", nil),
 				)
 			})
 		})
